@@ -1,0 +1,43 @@
+[
+	{
+		"clsSubId":"251",
+		"clsSubOne":"phy",
+		"clsSubTwo":"chm",
+		"clsSubThree":"math",
+		"clsSubFour":"computer",
+		"clsSubFive":"bio"
+	},
+	{
+		"clsSubId":"252",
+		"clsSubOne":"phy",
+		"clsSubTwo":"chm",
+		"clsSubThree":"math",
+		"clsSubFour":"computer",
+		"clsSubFive":"bio"
+	},
+	{
+		"clsSubId":"253",
+		"clsSubOne":"phy",
+		"clsSubTwo":"chm",
+		"clsSubThree":"math",
+		"clsSubFour":"computer",
+		"clsSubFive":"bio"
+	},
+	{
+		"clsSubId":"254",
+		"clsSubOne":"phy",
+		"clsSubTwo":"chm",
+		"clsSubThree":"math",
+		"clsSubFour":"computer",
+		"clsSubFive":"bio"
+	},
+	{
+		"clsSubId":"255",
+		"clsSubOne":"phy",
+		"clsSubTwo":"chm",
+		"clsSubThree":"math",
+		"clsSubFour":"computer",
+		"clsSubFive":"bio"
+	}
+	
+]

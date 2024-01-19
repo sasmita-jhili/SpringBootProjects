@@ -1,0 +1,28 @@
+[
+	{
+		"classId":"111",
+		"classStandard":"3rd",
+		"classSubject":"physics"
+	},
+	{
+		"classId":"222",
+		"classStandard":"5th",
+		"classSubject":"physics"
+	},
+	{
+		"classId":"333",
+		"classStandard":"8th",
+		"classSubject":"physics"
+	},
+	{
+		"classId":"444",
+		"classStandard":"4th",
+		"classSubject":"physics"
+	},
+	{
+		"classId":"555",
+		"classStandard":"1st",
+		"classSubject":"physics"
+	}
+	
+]
