@@ -4,16 +4,17 @@ import java.util.List;
 
 import com.app.entity.Faculty;
 import com.app.response.dto.PageResponseDto;
+import com.app.response.dto.ResponseDto;
 
 public interface IFacultyService {
 
-	void createFaculty(Faculty fc);
+	ResponseDto<String> createFaculty(Faculty fc);
 
-	void updateFaculty(Faculty fc);
+	ResponseDto<Faculty> updateFaculty(Faculty fc);
 
-	void deleteFaculty(Integer id);
+	ResponseDto<Faculty> deleteFaculty(Integer id);
 
-	Faculty getOneFaculty(Integer id);
+	ResponseDto<Faculty> getOneFaculty(Integer id);
 
 	PageResponseDto<List<Faculty>> getAllFaculties(Integer pageSize, Integer pageNumber);
 }

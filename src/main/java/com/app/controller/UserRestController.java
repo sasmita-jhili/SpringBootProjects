@@ -12,17 +12,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.dto.AuthRequest;
 import com.app.entity.User;
 import com.app.exception.SMSException;
+import com.app.model.AuthRequest;
 import com.app.security.JwtService;
+import com.app.service.IUserService;
 import com.app.service.impl.UserServiceImpl;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserRestController {
 	@Autowired
-	private UserServiceImpl service;
+	private IUserService service;
 
 	@Autowired
 	private JwtService jwtService;

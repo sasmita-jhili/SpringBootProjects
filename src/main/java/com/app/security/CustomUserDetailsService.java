@@ -16,13 +16,13 @@ import com.app.repo.UserRepo;
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
-	private UserRepo repo;
+	private UserRepo userRepo;
 	@Autowired
 	private RoleRepo roleRepo;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<User> user = repo.findByUserName(username);
+		Optional<User> user = userRepo.findByUserName(username);
 		if (user.isPresent()) {
 			Optional<Role> role = roleRepo.findByRoleId(user.get().getRoleId());
 			user.get().setRoleName(role.get().getRoleName());
