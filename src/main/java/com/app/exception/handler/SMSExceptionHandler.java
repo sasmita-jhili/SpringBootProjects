@@ -6,13 +6,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.app.exception.SMSException;
+import com.app.model.ErrorResponse;
 
 @RestControllerAdvice
 public class SMSExceptionHandler {
 
 	@ExceptionHandler(SMSException.class)
-	public ResponseEntity<String> showFacultyNotFoundError(SMSException sms) {
-		
-		return new ResponseEntity<String>(sms.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	public ResponseEntity<ErrorResponse> showFacultyNotFoundError(SMSException sms) {
+
+		return ResponseEntity.badRequest()
+				.body(ErrorResponse.builder().errorId("123").errorMessage(sms.getMessage()).build());
 	}
 }

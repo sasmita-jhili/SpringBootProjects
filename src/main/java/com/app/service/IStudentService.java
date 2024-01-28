@@ -1,18 +1,27 @@
 package com.app.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.app.entity.Student;
+import com.app.response.dto.PageResponseDto;
+import com.app.response.dto.ResponseDto;
 
 public interface IStudentService {
 
-	void createStudent(Student std);
+	ResponseDto<String> createStudent(Student std);
 
-	void updateStudent(Student std);
+	ResponseDto<Student> updateStudent(Student std);
 
-	void deleteStudent(Integer id);
+	ResponseDto<String> deleteStudent(Integer id);
 
-	Student getOneStudent(Integer id);
+	ResponseDto<Student> getOneStudent(Integer id);
 
-	List<Student> getAllStudents();
+	ResponseDto<String> imageUpload(MultipartFile file, Integer id) throws IOException;
+
+	PageResponseDto<List<Student>> getAllStudents(Integer pageSize, Integer pageNumber);
+
+//	byte[] downloadImage(String filename);
 }

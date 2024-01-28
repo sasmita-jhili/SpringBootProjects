@@ -1,81 +1,69 @@
 package com.app.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.app.entity.Student;
-import com.app.exception.SMSException;
-import com.app.service.impl.StudentServiceImpl;
+import com.app.response.dto.PageResponseDto;
+import com.app.response.dto.ResponseDto;
+import com.app.service.IStudentService;
 
 @RestController
 @RequestMapping("/api/student")
 public class StudentRestController {
 	@Autowired
-	private StudentServiceImpl service;
+	private IStudentService service;
 
 	@PostMapping("/create")
-	public ResponseEntity<String> addStudent(@RequestBody Student student) {
-		service.createStudent(student);
-		String msg = "Student Details Created";
-		return ResponseEntity.ok(msg);
+	public ResponseEntity<ResponseDto<String>> addStudent(@RequestBody Student std) {
+		ResponseDto<String> response = service.createStudent(std);
+		return ResponseEntity.ok(response);
 
 	}
 
-	@GetMapping("/getall")
-	public ResponseEntity<List<Student>> studentList() {
-		List<Student> list = service.getAllStudents();
-		return ResponseEntity.ok(list);
-
+	@GetMapping("/getall/{pageNumber}/{pageSize}")
+	public ResponseEntity<PageResponseDto<List<Student>>> studentList(@PathVariable Integer pageSize,
+			@PathVariable Integer pageNumber) {
+		PageResponseDto<List<Student>> response = service.getAllStudents(pageSize, pageNumber);
+		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/find/{id}")
-	public ResponseEntity<Student> getOneStudent(@PathVariable("id") Integer id) {
-		ResponseEntity<Student> response = null;
-		try {
-			Student student = service.getOneStudent(id);
-			response = ResponseEntity.ok(student);
-		} catch (SMSException e) {
-			e.printStackTrace();
-			throw new SMSException("Student id not found!!");
-		}
-		return response;
+	public ResponseEntity<ResponseDto<Student>> getOneStudent(@PathVariable("id") Integer id) {
+		ResponseDto<Student> response = service.getOneStudent(id);
+		return ResponseEntity.ok(response);
 	}
 
 	@DeleteMapping("/remove/{id}")
-	public ResponseEntity<String> deleteStudent(@PathVariable("id") Integer id) {
-		ResponseEntity<String> response = null;
-		try {
-			service.deleteStudent(id);
-			response = ResponseEntity.ok("Student '" + id + "' REMOVED");
-
-		} catch (SMSException e) {
-			e.printStackTrace();
-			throw new SMSException("Student id not found!!");
-		}
-		return response;
-
+	public ResponseEntity<ResponseDto<String>> deleteStudent(@PathVariable("id") Integer id) {
+		ResponseDto<String> response = service.deleteStudent(id);
+		return ResponseEntity.ok(response);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<String> updateStudent(@RequestBody Student student) {
-		ResponseEntity<String> response = null;
-		try {
-			service.updateStudent(student);
-			response = ResponseEntity.ok("Student  updated...");
-		} catch (SMSException e) {
-			e.printStackTrace();
-			throw new SMSException("Student not found!!");
-		}
-		return response;
+	public ResponseEntity<ResponseDto<Student>> updateStudent(@RequestBody Student student) {
+		ResponseDto<Student> response = service.updateStudent(student);
+		return ResponseEntity.ok(response);
+	}
+
+	@PatchMapping("/image/{id}")
+	public ResponseEntity<ResponseDto<String>> uploadImage(@PathVariable("id") Integer id,
+			@RequestPart("file") MultipartFile file) throws IOException {
+		ResponseDto<String> response = service.imageUpload(file, id);
+		return ResponseEntity.ok(response);
 	}
 }
