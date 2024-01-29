@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.StudentManagementServiceAppApplication;
 import com.app.constants.ResponseConstants;
 import com.app.constants.UserConstant;
 import com.app.controller.FacultyRestController;
@@ -37,12 +38,7 @@ public class FacultyServiceImpl implements IFacultyService {
 	private EmailService emailService;
 	@Autowired
 	private PasswordGeneratorUtil passwordGeneratorUtil;
-
-	private static final Logger logger = Logger.getLogger(FacultyRestController.class);
-
-	{
-		DOMConfigurator.configure("src/main/resources/Log4j.xml");
-	}
+	private static final Logger logger = Logger.getLogger(FacultyServiceImpl.class);
 
 	@Override
 	@Transactional
@@ -72,10 +68,9 @@ public class FacultyServiceImpl implements IFacultyService {
 			if (faculty.getFacultyId() == null || !facultyRepo.existsById(faculty.getFacultyId())) {
 				throw new SMSException("Faculty not Exist...");
 			} else {
-				Faculty facultyData=facultyRepo.save(faculty);
+				Faculty facultyData = facultyRepo.save(faculty);
 				return ResponseDto.<Faculty>builder().message(ResponseConstants.SUCCESS_FACULTY_UPDATE)
-						.status(HttpStatus.OK)
-						.data(facultyData).build();
+						.status(HttpStatus.OK).data(facultyData).build();
 			}
 		} catch (Exception e) {
 			throw new SMSException("Unable to update");
@@ -87,8 +82,8 @@ public class FacultyServiceImpl implements IFacultyService {
 	public ResponseDto deleteFaculty(Integer id) {
 		try {
 			facultyRepo.deleteById(id);
-			return ResponseDto.builder().message(ResponseConstants.SUCCESS_FACULTY_DELETE)
-					.status(HttpStatus.OK).build();
+			return ResponseDto.builder().message(ResponseConstants.SUCCESS_FACULTY_DELETE).status(HttpStatus.OK)
+					.build();
 		} catch (Exception e) {
 			throw new SMSException("Unable to delete");
 		}
@@ -120,4 +115,5 @@ public class FacultyServiceImpl implements IFacultyService {
 			throw new SMSException("Unable to fetch faculty list");
 		}
 	}
+
 }

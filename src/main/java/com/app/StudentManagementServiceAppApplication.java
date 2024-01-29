@@ -3,11 +3,15 @@ package com.app;
 import java.io.InputStream;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.app.controller.FacultyRestController;
 import com.app.entity.ClassInfo;
 import com.app.entity.ClassSubject;
 import com.app.repo.ClassInfoRepository;
@@ -22,7 +26,14 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 @SpringBootApplication
 @OpenAPIDefinition(info=@Info(title="student app",version="2.0",description="studentapp"))
+@EnableScheduling
 public class StudentManagementServiceAppApplication {
+	private static final Logger logger = Logger.getLogger(StudentManagementServiceAppApplication.class);
+
+	{
+		DOMConfigurator.configure("src/main/resources/Log4j.xml");
+	}
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(StudentManagementServiceAppApplication.class, args);

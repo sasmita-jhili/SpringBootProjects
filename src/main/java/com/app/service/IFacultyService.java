@@ -17,4 +17,5 @@ public interface IFacultyService {
 	ResponseDto<Faculty> getOneFaculty(Integer id);
 
 	PageResponseDto<List<Faculty>> getAllFaculties(Integer pageSize, Integer pageNumber);
+	
 }
